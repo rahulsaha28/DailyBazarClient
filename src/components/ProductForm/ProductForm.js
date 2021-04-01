@@ -39,7 +39,7 @@ const ProductForm = () => {
                    .then(res=>res.json())
                    .then(result=>{
                        setProducts(result)
-                       history('/');
+                       history.replace('/');
                     })
                 }
                 else{
