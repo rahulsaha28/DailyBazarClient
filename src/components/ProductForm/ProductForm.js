@@ -9,7 +9,7 @@ import { URL } from '../Utility/Utility';
 const ProductForm = () => {
     const { register, handleSubmit } = useForm();
     const [imageURL, setImageURL] = useState(null);
-    const [setProducts] = useContext(ProductContext);
+    const [products, setProducts ] = useContext(ProductContext);
     const history = useHistory();
     // get notification
 
@@ -34,13 +34,16 @@ const ProductForm = () => {
             .then(res=>res.json())
             .then(result=>{
                 if(result.success){
-                   notify('success', result.success); 
+                    notify('success', result.success);
                    fetch(`${ URL }/product/all`)
                    .then(res=>res.json())
-                   .then(async result=>{
-                       await setProducts(result)
-                       await history.replace('/');
+                   .then(dataProduct=>{
+                       
+                       setProducts(dataProduct);
+                       
+                       history.replace('/');
                     })
+                     
                 }
                 else{
                     notify('error', result.error); 
