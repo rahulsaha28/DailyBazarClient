@@ -37,9 +37,9 @@ const ProductForm = () => {
                    notify('success', result.success); 
                    fetch(`${ URL }/product/all`)
                    .then(res=>res.json())
-                   .then(result=>{
-                       setProducts(result)
-                       history.replace('/');
+                   .then(async result=>{
+                       await setProducts(result)
+                       await history.replace('/');
                     })
                 }
                 else{
