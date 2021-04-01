@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useHistory } from 'react-router';
 import { Panel } from 'rsuite';
 import { ProductContext } from '../../App';
 import notify from '../Message/Message';
@@ -8,8 +9,8 @@ import { URL } from '../Utility/Utility';
 const ProductForm = () => {
     const { register, handleSubmit } = useForm();
     const [imageURL, setImageURL] = useState(null);
-    const [products, setProducts] = useContext(ProductContext);
-
+    const [setProducts] = useContext(ProductContext);
+    const history = useHistory();
     // get notification
 
 
@@ -36,7 +37,10 @@ const ProductForm = () => {
                    notify('success', result.success); 
                    fetch(`${ URL }/product/all`)
                    .then(res=>res.json())
-                   .then(result=>setProducts(result))
+                   .then(result=>{
+                       setProducts(result)
+                       history('/');
+                    })
                 }
                 else{
                     notify('error', result.error); 
